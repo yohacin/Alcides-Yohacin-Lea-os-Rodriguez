@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Usuario Listado";
+}
+
+@model NetCoreApp2.Models.UsuarioViewModel;
+
+
+<div class="content-wrapper">
+    <div class="content">
+        <div class="panel panel-default">
+            <div class="panel-heading heading-primary">
+                <button type="submit" class="btn btn-base crear" onclick="Crear()">
+                    <span class="fa span-button"></span>
+                    <p class="text-button-primary">Crear</p>
+                </button>
+            </div>
+            <div class="panel-body">
+                <section class="content">
+                    <table>
+                        <tr>
+                            <th>id</th>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                        </tr>
+                        @foreach (Entities.Usuario eUsuario in Model.eListaUsuario)
+                        {
+                        <tr>
+                            <td> @eUsuario.id_usuario  </td>
+                            <td> @eUsuario.nombre  </td>
+                            <td>@eUsuario.telefono  </td>
+                            <td>  <a href='@Url.Action("Crear","usuario", new { Id= eUsuario.id_usuario})'> text </a> </td>
+                        </tr>
+                        }
+                    </table>
+                </section>
+                <!--  -------------------- PASO DE PARAMETRO POST ----------------- -->
+                <form id="formPasoParametro" action='@Url.Action("Crear", "Usuario")' method="POST">
+                    <input type="hidden" id="usuarioId" name="usuarioId" value="0">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

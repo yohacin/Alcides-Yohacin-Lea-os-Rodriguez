@@ -1,0 +1,102 @@
+﻿
+
+@model NetCoreApp2.Models.UsuarioViewModel
+
+
+
+<div class="content-wrapper">
+    <div class="content">
+        <form id="frmUsuario" class="form-horizontal" asp-controller="Usuario" asp-action="Post" autocomplete="off" data-ajax="true" data-ajax-method="POST"
+              data-ajax-success="fnSuccess(data)" data-ajax-failure="fnFailure()">
+            <div class="panel panel-default">
+                <div class="panel-heading heading-primary">
+                    <button class="btn btn-base cancelar" type="button" onclick="irAListado()">
+                        <span class="fa span-button"></span>
+                        <p class="text-button-secondary">VOLVER</p>
+                    </button>
+                    <button class="btn btn-base guardar" onclick="Guardar()">
+                        <span class="fa span-button"></span>
+                        <p class="text-button-primary">GUARDAR</p>
+                    </button>
+                </div>
+                <div class="panel-body">
+                    <section class="content">
+
+                        <input type="hidden" id="id_empresa" asp-for="eUsuario.id_usuario" value="@Model.eUsuario.id_usuario" />
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-lg-4 col-md-4">
+                                <h4> <b style="color:red;">*</b>Nombre:</h4>
+                                <div class="e-input-group">
+                                    <input class="e-input" asp-for="eUsuario.nombre" type="text" value="@Model.eUsuario.nombre">
+                                </div>
+                                <span asp-validation-for="eUsuario.nombre" class="text-danger"></span>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-lg-4 col-md-4">
+                                <h4> <b style="color:red;">*</b>Correo:</h4>
+                                <div class="e-input-group">
+                                    <input class="e-input" asp-for="eUsuario.correo" type="email" value="@Model.eUsuario.correo">
+                                </div>
+                                <span asp-validation-for="eUsuario.correo" class="text-danger"></span>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-lg-4 col-md-4">
+                                <h4> <b style="color:red;">*</b>Nombre Usuario:</h4>
+                                <div class="e-input-group">
+                                    <input class="e-input" asp-for="eUsuario.user_name" type="text" value="@Model.eUsuario.user_name">
+                                </div>
+                                <span asp-validation-for="eUsuario.user_name" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-3 col-sm-3 col-lg-4 col-md-4">
+                                <h4> Telefono:</h4>
+                                <div class="e-input-group">
+                                    <input class="e-input" asp-for="eUsuario.telefono" type="text" value="@Model.eUsuario.telefono">
+                                </div>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-lg-4 col-md-4">
+                                <h4> <b style="color:red;">*</b>Contraseña:</h4>
+                                <div class="e-input-group">
+                                    <input class="e-input" asp-for="eUsuario.contrasena" type="password" value="@Model.eUsuario.contrasena">
+                                </div>
+                                <span asp-validation-for="eUsuario.contrasena" class="text-danger"></span>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-lg-4 col-md-4">
+                                <h4> Activo:</h4>
+                            </div>
+                        </div>
+
+                    </section>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ----------------------------------------- Eventos despues de llamar al metodo AJAX inicio ----------------- -->
+<script>
+    function fnSuccess(data) {
+        console.log(data);
+        if (data.result == true) {
+            alert("Accione Correcta");
+            irAListado();
+        }
+        else
+            alert("Error en la accion");
+    }
+
+    function fnFailure() {
+        alert("No existe");
+    }
+</script>
+<!-- ----------------------------------------- Eventos despues de llamar al metodo AJAX inicio ----------------- -->
+<script>
+    function irAListado() {
+        window.document.location.href = '@Url.Action("Listado", "Usuario")';
+    }
+
+    function Guardar() {
+        //document.getElementById('stringListaSucursal').value = JSON.stringify(grid.dataSource);
+    }
+</script>
