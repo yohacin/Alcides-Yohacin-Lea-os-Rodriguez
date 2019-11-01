@@ -17,4 +17,11 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Reference Include="Utils">
+      <HintPath>..\..\..\..\..\..\Backing\_XCursoIngenieriaWEB\Utils\bin\Debug\netcoreapp2.2\Utils.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
