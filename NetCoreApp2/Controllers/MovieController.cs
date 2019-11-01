@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-using Utils;
+using MovieClubComponent;
 
 namespace NetCoreApp2.Controllers
 {
@@ -13,42 +13,55 @@ namespace NetCoreApp2.Controllers
     [ApiController]
     public class MovieController : ControllerBase
     {
+        Movie _Movie;
+
+        public MovieController()
+        {
+            _Movie = new Movie();
+        }
+
         // GET: api/Movie
         [HttpGet]
         public IEnumerable<Entities.Movie> Get()
         {
-              Business.Movie  oMovie = new Business.Movie();
-            return oMovie.GetListaMovies();
+            return _Movie.GetLista();
         }
 
         // GET: api/Movie/5
         [HttpGet("{id}", Name = "Get")]
         public Entities.Movie Get(int id)
         {
-            Business.Movie oMovie = new Business.Movie();
-            return oMovie.GetMovie(id);
+            Movie _Movie = new Movie();
+            return _Movie.GetEntity(id);
+        }
+
+
+        // GET: api/Movie/GetActors/5
+        [HttpGet("{id}/GetActors")]
+        public IEnumerable<Entities.Actor> GetActors(int id)
+        {
+            return _Movie.GetMovieActors(id);
         }
 
         // POST: api/Movie
         [HttpPost]
         public void Post([FromBody] Entities.Movie eMovie)
         {
-            Business.Movie oMovie = new Business.Movie();
-            oMovie.Guardar(eMovie);  
+            _Movie.Guardar(eMovie);  
         }
 
         // PUT: api/Movie/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Entities.Movie eMovie)
         {
-            Business.Movie oMovie = new Business.Movie();
-            oMovie.Modificar(eMovie);
+           _Movie.Modificar(eMovie);
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _Movie.Eliminar(id);  
         }
     }
 }

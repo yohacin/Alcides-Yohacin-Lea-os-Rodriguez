@@ -13,10 +13,10 @@ using Microsoft.Extensions.Logging.Console;
 using Entities;
 
 
-namespace Data
+namespace Utils.DataAccesComponent
 {
 
-    public class ApplicationDbContext : IdentityDbContext<EntidadBase>
+     class ApplicationDbContext : IdentityDbContext
     { 
         //public static readonly LoggerFactory LoggerFactory = new LoggerFactory(new[] { new ConsoleLoggerProvider((_, __) => true, true) });
 
@@ -55,7 +55,8 @@ namespace Data
         //------------------------------- Cliente
         public DbSet<Entities.Usuario> Usuario { get; set; }
         public DbSet<Entities.Movie> Movie { get; set; }
-        
+        public DbSet<Entities.Actor> Actor { get; set; }
+
 
 
     }

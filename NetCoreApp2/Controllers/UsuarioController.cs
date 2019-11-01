@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
-using Utils; 
+using Utils;
 //using Microsoft.AspNet.OData.Query;
 
 namespace Facturacion.Controllers
@@ -23,7 +23,7 @@ namespace Facturacion.Controllers
         {
             UsuarioViewModel vUsuarioViewModel = new UsuarioViewModel();
             /* ------------------------------Cargada items para el menu ------------------- */
-            vUsuarioViewModel.eListaUsuario = new Business.Usuario().GetListaUsuario();  
+            vUsuarioViewModel.eListaUsuario = new MovieClubComponent.Usuario().GetListaUsuario();  
 
             return View(vUsuarioViewModel);
         }
@@ -34,7 +34,7 @@ namespace Facturacion.Controllers
         {
             UsuarioViewModel vUsuarioViewModel = new UsuarioViewModel();
             /* ------------------------------Cargada items para el menu ------------------- */
-            vUsuarioViewModel.eListaUsuario = new Business.Usuario().GetListaUsuario();
+            vUsuarioViewModel.eListaUsuario = new MovieClubComponent.Usuario().GetListaUsuario();
 
             return vUsuarioViewModel.eListaUsuario;
         }
@@ -70,14 +70,14 @@ namespace Facturacion.Controllers
             try
             {
                 UsuarioViewModel vUsuarioViewModel = new UsuarioViewModel();
-                
-                Business.Usuario oUsuario = new Business.Usuario();
+
+                MovieClubComponent.Usuario oUsuario = new MovieClubComponent.Usuario();
 
 
 
                 if (Id != 0)
                 {
-                    vUsuarioViewModel.eUsuario = oUsuario.GetUsuario(Id);
+                    vUsuarioViewModel.eUsuario = oUsuario.GetEntity(Id);
                 }
                 else {
                     vUsuarioViewModel.eUsuario = new Entities.Usuario();
@@ -103,7 +103,7 @@ namespace Facturacion.Controllers
         {
             try
             {
-                Business.Usuario oUsuario = new Business.Usuario();
+                MovieClubComponent.Usuario oUsuario = new MovieClubComponent.Usuario();
 
                 if (vUsuarioViewModel.eUsuario.id_usuario != 0)
                 {
@@ -131,7 +131,7 @@ namespace Facturacion.Controllers
                 return BadRequest(ModelState);
             }
 
-            Business.Usuario oUsuario = new Business.Usuario();
+            MovieClubComponent.Usuario oUsuario = new MovieClubComponent.Usuario();
             oUsuario.Eliminar(id);
 
             return Ok(new { Result = true });

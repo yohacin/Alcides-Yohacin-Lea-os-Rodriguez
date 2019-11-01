@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <StartupObject />
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <ItemGroup>

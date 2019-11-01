@@ -2,10 +2,12 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 
+
+
 namespace Entities
 {
     [Table("Movie")]
-    public class Movie
+    public class Movie     
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]

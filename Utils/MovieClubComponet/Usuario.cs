@@ -2,39 +2,44 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
-using Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Business
+
+using Utils.DataAccesComponent;
+using Interfaces;   
+
+namespace MovieClubComponent
 {
-    public class Movie
+    public class Usuario : IBussines<Entities.Usuario>
     {
-        ApplicationDbContext _DBcontext;
+
+         ApplicationDbContext  _DBcontext ;
 
         #region OPERACIONES BASICAS GUARDAR, MODIFICAR Y ELIMINAR
 
 
-        public Movie()
+        public Usuario()
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
 
-            optionsBuilder.UseSqlServer("Server=.\\LaptopALC2016;User ID=sa;Password=laptop123.;Database=bd_MovieClub;");
-           // optionsBuilder.UseNpgsql("Host=localhost;Port=5432;User ID=postgres;Password=laptop123.;Database=db_facturacion;");
+            //optionsBuilder.UseSqlServer("Server=.\\LaptopALC2016;User ID=sa;Password=laptop123.;Database=db_facturacion;");
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;User ID=postgres;Password=laptop123.;Database=db_facturacion;");
 
             _DBcontext = new ApplicationDbContext(optionsBuilder.Options);
-
+            
         }
 
 
-        public bool Guardar(Entities.Movie eMovie)
+        public bool Guardar(Entities.Usuario eUsuario)
         {
             using (var oTrans = _DBcontext.Database.BeginTransaction())
             {
                 try
                 {
                     //tregistrando empresa
-                    this._DBcontext.Movie.Add(eMovie);
+                    this._DBcontext.Usuario.Add(eUsuario);
                     this._DBcontext.SaveChanges();
 
                     oTrans.Commit();
@@ -48,22 +53,21 @@ namespace Business
             }
         }
 
-        public bool Modificar(Entities.Movie eMovie)
+        public bool Modificar(Entities.Usuario eUsuario)
         {
             using (var oTrans = _DBcontext.Database.BeginTransaction())
             {
                 try
                 {
-                    Entities.Movie eMovieAux = this._DBcontext.Movie.FirstOrDefault(e => e.id_Movie == eMovie.id_Movie );
-                    eMovieAux.name = eMovie.name;
-                    eMovieAux.id_category = eMovie.id_category ;
-                    eMovieAux.year = eMovie.year ;
+                    Entities.Usuario eUsuarioAux = this._DBcontext.Usuario.FirstOrDefault(e => e.id_usuario == eUsuario.id_usuario);
+                    eUsuarioAux.user_name  = eUsuario.user_name;
+                    eUsuarioAux.activo = eUsuario.activo;
+                    eUsuarioAux.contrasena  = eUsuario.contrasena;
+                    eUsuarioAux.telefono  = eUsuario.contrasena;
                     
-                    this._DBcontext.Entry(eMovieAux).State = EntityState.Modified;
+                    this._DBcontext.Entry(eUsuarioAux).State = EntityState.Modified;
                     this._DBcontext.SaveChanges();
-
-
-
+                    
                     oTrans.Commit();
                     return true;
                 }
@@ -75,15 +79,18 @@ namespace Business
             }
         }
 
-        public bool Eliminar(int id)
+        public bool Eliminar(int id_Usuario)
         {
             using (var oTrans = _DBcontext.Database.BeginTransaction())
             {
                 try
                 {
-                    Entities.Movie eMovie = this.GetMovie(id);
+                    Entities.Usuario eUsuarioAux = this._DBcontext.Usuario.FirstOrDefault(e => e.id_usuario == id_Usuario);
+                    
+                    this._DBcontext.Entry(eUsuarioAux).State = EntityState.Deleted;
+                    this._DBcontext.SaveChanges();
 
-                    //oTrans.Commit();
+                    oTrans.Commit();
                     return true;
                 }
                 catch (Exception ex)
@@ -97,11 +104,11 @@ namespace Business
         #endregion
 
         #region metodos get, listado, etc
-        public Entities.Movie GetMovie(int id_Movie)
+        public Entities.Usuario GetEntity(int IdUsuario)
         {
             try
             {
-                return this._DBcontext.Movie.FirstOrDefault(e => e.id_Movie == id_Movie);
+                return this._DBcontext.Usuario.FirstOrDefault(e => e.id_usuario == IdUsuario);
             }
             catch (Exception ex)
             {
@@ -109,11 +116,11 @@ namespace Business
             }
         }
 
-        public IQueryable<Entities.Movie> GetListaMovies()
+        public IQueryable<Entities.Usuario> GetLista()
         {
             try
             {
-                return this._DBcontext.Movie.OrderByDescending(e => e.id_Movie);
+                return this._DBcontext.Usuario.OrderByDescending(e => e.id_usuario);
             }
             catch (Exception ex)
             {
@@ -139,8 +146,8 @@ namespace Business
         {
             try
             {
-                Entities.Usuario eMovie = _DBcontext.Usuario.Where(u => u.user_name == correo && u.contrasena == contrasena).Single();
-                return eMovie;
+                Entities.Usuario eUsuario = _DBcontext.Usuario.Where(u => u.user_name == correo && u.contrasena == contrasena).Single();
+                return eUsuario;
             }
             catch (Exception ex)
             {
@@ -148,7 +155,4 @@ namespace Business
             }
         }
     }
-
-
-
 }

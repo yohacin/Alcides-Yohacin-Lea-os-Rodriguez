@@ -35,8 +35,8 @@ namespace NetCoreApp2
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddDbContext<NetCoreApp2Context>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("NetCoreApp2Context")));
+            //services.AddDbContext<NetCoreApp2Context>(options =>
+            //        options.UseSqlServer(Configuration.GetConnectionString("NetCoreApp2Context")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
