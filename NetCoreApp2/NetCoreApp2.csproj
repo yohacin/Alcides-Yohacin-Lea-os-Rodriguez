@@ -11,6 +11,10 @@
     <Compile Remove="Controllers\MoviesControllerOp.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="classDiagram.cd" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
