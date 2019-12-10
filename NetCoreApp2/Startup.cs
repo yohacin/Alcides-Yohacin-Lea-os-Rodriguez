@@ -59,6 +59,11 @@ namespace NetCoreApp2
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "defaultApiComponent",
+                    template: "RestMovieClubCmp/{controller}",
+                    defaults: new { action = "Get" });
+
             });
         }
     }

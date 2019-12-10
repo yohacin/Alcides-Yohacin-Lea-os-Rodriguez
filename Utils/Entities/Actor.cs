@@ -8,6 +8,7 @@ namespace Entities
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
+        [Display(Name = "id_Actor")]
         public int id_Actor { get; set; }
 
         [Display(Name = "Name"), Required(ErrorMessage = "Campo requerido!")]

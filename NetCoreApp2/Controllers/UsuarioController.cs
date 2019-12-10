@@ -11,11 +11,17 @@ using Microsoft.AspNetCore.Mvc;
 using Utils;
 //using Microsoft.AspNet.OData.Query;
 
-namespace Facturacion.Controllers
+namespace NetCoreApp2.Controllers
 {
     //[Authorize]
     public class UsuarioController : Controller
     {
+        SecurityComponent.Usuario _dllSecuritComponentUser;
+
+        public UsuarioController()
+        {
+            _dllSecuritComponentUser = new SecurityComponent.Usuario();
+        }
         
 
         [HttpGet]
@@ -23,7 +29,7 @@ namespace Facturacion.Controllers
         {
             UsuarioViewModel vUsuarioViewModel = new UsuarioViewModel();
             /* ------------------------------Cargada items para el menu ------------------- */
-            vUsuarioViewModel.eListaUsuario = new MovieClubComponent.Usuario().GetListaUsuario();  
+            vUsuarioViewModel.eListaUsuario = _dllSecuritComponentUser.GetListaUsuario();  
 
             return View(vUsuarioViewModel);
         }
@@ -34,7 +40,7 @@ namespace Facturacion.Controllers
         {
             UsuarioViewModel vUsuarioViewModel = new UsuarioViewModel();
             /* ------------------------------Cargada items para el menu ------------------- */
-            vUsuarioViewModel.eListaUsuario = new MovieClubComponent.Usuario().GetListaUsuario();
+            vUsuarioViewModel.eListaUsuario = _dllSecuritComponentUser.GetListaUsuario();
 
             return vUsuarioViewModel.eListaUsuario;
         }
@@ -70,14 +76,10 @@ namespace Facturacion.Controllers
             try
             {
                 UsuarioViewModel vUsuarioViewModel = new UsuarioViewModel();
-
-                MovieClubComponent.Usuario oUsuario = new MovieClubComponent.Usuario();
-
-
-
+                
                 if (Id != 0)
                 {
-                    vUsuarioViewModel.eUsuario = oUsuario.GetEntity(Id);
+                    vUsuarioViewModel.eUsuario = _dllSecuritComponentUser.GetEntity(Id);
                 }
                 else {
                     vUsuarioViewModel.eUsuario = new Entities.Usuario();
@@ -103,15 +105,14 @@ namespace Facturacion.Controllers
         {
             try
             {
-                MovieClubComponent.Usuario oUsuario = new MovieClubComponent.Usuario();
-
+               
                 if (vUsuarioViewModel.eUsuario.id_usuario != 0)
                 {
-                    oUsuario.Modificar(vUsuarioViewModel.eUsuario);
+                    _dllSecuritComponentUser.Modificar(vUsuarioViewModel.eUsuario);
                 }
                 else
                 {
-                    oUsuario.Guardar(vUsuarioViewModel.eUsuario);
+                    _dllSecuritComponentUser.Guardar(vUsuarioViewModel.eUsuario);
                 }
             }
             catch (Exception ex)
@@ -131,8 +132,8 @@ namespace Facturacion.Controllers
                 return BadRequest(ModelState);
             }
 
-            MovieClubComponent.Usuario oUsuario = new MovieClubComponent.Usuario();
-            oUsuario.Eliminar(id);
+
+            _dllSecuritComponentUser.Eliminar(id);
 
             return Ok(new { Result = true });
         }

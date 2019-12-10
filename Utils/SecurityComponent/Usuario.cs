@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Utils.DataAccesComponent;
 using Interfaces;   
 
-namespace MovieClubComponent
+namespace SecurityComponent
 {
     public class Usuario : IBussines<Entities.Usuario>
     {

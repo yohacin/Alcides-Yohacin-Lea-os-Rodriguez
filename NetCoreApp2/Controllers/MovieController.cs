@@ -9,30 +9,29 @@ using MovieClubComponent;
 
 namespace NetCoreApp2.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("RestMovieClubCmp/[controller]")]
     [ApiController]
     public class MovieController : ControllerBase
     {
-        Movie _Movie;
+        Movie _DllMovieClubComponent;
 
         public MovieController()
         {
-            _Movie = new Movie();
+            _DllMovieClubComponent = new Movie();
         }
 
         // GET: api/Movie
         [HttpGet]
         public IEnumerable<Entities.Movie> Get()
         {
-            return _Movie.GetLista();
+            return _DllMovieClubComponent.GetLista();
         }
 
         // GET: api/Movie/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public Entities.Movie Get(int id)
         {
-            Movie _Movie = new Movie();
-            return _Movie.GetEntity(id);
+            return _DllMovieClubComponent.GetEntity(id);
         }
 
 
@@ -40,28 +39,28 @@ namespace NetCoreApp2.Controllers
         [HttpGet("{id}/GetActors")]
         public IEnumerable<Entities.Actor> GetActors(int id)
         {
-            return _Movie.GetMovieActors(id);
+            return _DllMovieClubComponent.GetMovieActors(id);
         }
 
         // POST: api/Movie
         [HttpPost]
         public void Post([FromBody] Entities.Movie eMovie)
         {
-            _Movie.Guardar(eMovie);  
+            _DllMovieClubComponent.Guardar(eMovie);  
         }
 
         // PUT: api/Movie/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Entities.Movie eMovie)
         {
-           _Movie.Modificar(eMovie);
+            _DllMovieClubComponent.Modificar(eMovie);
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _Movie.Eliminar(id);  
+            _DllMovieClubComponent.Eliminar(id);  
         }
     }
 }

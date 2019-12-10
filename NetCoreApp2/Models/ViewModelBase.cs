@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 
 
-namespace Facturacion.Models
+namespace NetCoreApp2.Models
 {
     public class ViewModelBase
     {
